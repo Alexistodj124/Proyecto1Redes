@@ -46,7 +46,6 @@ while True:
                 for r in data[:10]:
                     print(f"• {r['Nombre']} — {r['Calle']}, Zona {r['Zona']}, {r['Ciudad']} (Stock {r.get('Stock','?')})")
         else:
-            # Aquí tu llamada al LLM (Groq/Anthropic) + políticas antialucinación
             print("(LLM) ¿Podrías indicar tu zona para buscar disponibilidad?")
     except KeyboardInterrupt:
         print("\nAdiós!")

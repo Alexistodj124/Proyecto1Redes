@@ -1,46 +1,41 @@
-# mcp_server.py
-import sys, json
+from typing import List, Dict, Any
+from mcp.server.fastmcp import FastMCP
 from inventario import Inventario
+import os
 
-inv = Inventario("prueba.csv")
 
-def handle_request(request):
-    if request["method"] == "find_stores_by_zone":
-        zone = request["params"]["zone"]
-        result = inv.buscar_tiendas_en_zona(zone)
-        return {
-            "jsonrpc": "2.0",
-            "id": request["id"],
-            "result": result
-        }
-    elif request["method"] == "recommend_complements":
-        product = request["params"]["product_name"]
-        zone = request["params"].get("zone")
-        result = inv.recomendar_complementos(product, zone)
-        return {
-            "jsonrpc": "2.0",
-            "id": request["id"],
-            "result": result
-        }
-    else:
-        return {
-            "jsonrpc": "2.0",
-            "id": request["id"],
-            "error": {"code": -32601, "message": "Método no encontrado"}
-        }
+# Instancia de inventario basada en CSV
+CSV_PATH = os.getenv("INVENTARIO_CSV", "/Users/alexismesias/Library/CloudStorage/OneDrive-Personal/UVG8VO/REDES/Proyecto1Redes/prueba.csv")
+inv = Inventario(CSV_PATH)
 
-def main():
-    print("🟢 Servidor MCP Local iniciado. Esperando requests JSON-RPC...\n")
-    for line in sys.stdin:  # Lee línea JSON desde stdin
-        try:
-            request = json.loads(line.strip())
-            response = handle_request(request)
-            sys.stdout.write(json.dumps(response) + "\n")
-            sys.stdout.flush()
-        except Exception as e:
-            err = {"jsonrpc": "2.0", "error": {"code": -32000, "message": str(e)}}
-            sys.stdout.write(json.dumps(err) + "\n")
-            sys.stdout.flush()
+# Crea el servidor MCP
+mcp = FastMCP("Proyecto1Redes")
+
+@mcp.tool()
+def find_stores_by_zone(zone: str) -> List[Dict[str, Any]]:
+    """
+    Devuelve tiendas/stock por zona.
+    Args:
+        zone: Número de zona (e.g., "10")
+    Returns:
+        Lista de dicts: [{Nombre,Calle,Ciudad,Zona,Producto,Stock}, ...]
+    """
+    return inv.buscar_tiendas_en_zona(zone)
+
+@mcp.tool()
+def recommend_complements(product_name: str, zone: str | None = None) -> Dict[str, Any]:
+    """
+    Disponibilidad del producto y sugerencias complementarias.
+    Args:
+        product_name: Nombre del producto a buscar (e.g., "Bionic")
+        zone: Número de zona (opcional, e.g., "15")
+    Returns:
+        {
+          "disponibilidad": [ ... coincidencias ... ],
+          "sugeridos": ["Producto A", "Producto B", "Producto C"]
+        }
+    """
+    return inv.recomendar_complementos(product_name, zone)
 
 if __name__ == "__main__":
-    main()
+    mcp.run(transport="stdio")

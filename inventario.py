@@ -45,7 +45,6 @@ class Inventario:
         if zona:
             df['Zona'] = df['Zona'].astype(str).str.extract(r'(\d+)')[0]
             df = df[df['Zona'] == str(zona)]
-        # Heurística sencilla: devolver otros productos frecuentes distintos del consultado
         base = df[df['Producto'].str.contains(producto, case=False, na=False)]
         disponibilidad = base.to_dict(orient='records')
         complementos = (
