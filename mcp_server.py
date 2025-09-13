@@ -9,7 +9,7 @@ CSV_PATH = os.getenv("INVENTARIO_CSV", "/Users/alexismesias/Library/CloudStorage
 inv = Inventario(CSV_PATH)
 
 # Crea el servidor MCP
-mcp = FastMCP("Proyecto1Redes")
+mcp = FastMCP("inventario_csv")
 
 @mcp.tool()
 def find_stores_by_zone(zone: str) -> List[Dict[str, Any]]:
