@@ -5,7 +5,8 @@ import os
 
 
 # Instancia de inventario basada en CSV
-CSV_PATH = os.getenv("INVENTARIO_CSV", "/Users/alexismesias/Library/CloudStorage/OneDrive-Personal/UVG8VO/REDES/Proyecto1Redes/prueba.csv")
+CSV = prueba.csv
+CSV_PATH = os.getenv("INVENTARIO_CSV", "/Users/alexismesias/Library/CloudStorage/OneDrive-Personal/UVG8VO/REDES/Proyecto1Redes/prueba.csv", "CSV")
 inv = Inventario(CSV_PATH)
 
 # Crea el servidor MCP
