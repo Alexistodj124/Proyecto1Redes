@@ -35,7 +35,6 @@ def tokenize(s: str) -> list:
     return [t for t in s.split() if t]
 
 ALIAS_MAP = {
-    # normalizado : forma canónica que esperas en catálogo
     "knino": "k nino",
     "k nino": "k nino",
     "k-nino": "k nino",
@@ -103,7 +102,6 @@ class Inventario:
             if col in df.columns:
                 df[col] = df[col].fillna("").astype(str).str.strip()
 
-        # columnas normalizadas auxiliares (si existen)
         if 'Producto' in df.columns:
             df['Producto_norm'] = df['Producto'].map(normalize_text)
         if 'Codigo' in df.columns:
@@ -201,19 +199,14 @@ class Inventario:
 
         cands = []
 
-        # 1) por código de productos vistos en disponibilidad
         if codigos_disponibles:
             cand_by_code = dfc[dfc['base_codigo_norm'].isin({c.lower() for c in codigos_disponibles})]
             if not cand_by_code.empty:
                 cands.append(cand_by_code)
 
-        # 2) por nombre normalizado (contenga TODOS los tokens principales)
         if q_tokens:
-            # estrategia: base_nombre_norm debe contener al menos uno de los tokens “marca”
-            # y de preferencia todos los tokens del término
             mask = dfc['base_nombre_norm'].apply(lambda s: all(t in s for t in q_tokens))
             cand_by_name = dfc[mask]
-            # si no encontró todos, al menos alguno
             if cand_by_name.empty:
                 mask_any = dfc['base_nombre_norm'].apply(lambda s: any(t in s for t in q_tokens))
                 cand_by_name = dfc[mask_any]
@@ -281,7 +274,6 @@ class Inventario:
         else:
             disponibilidad = []
 
-        # codigos de lo encontrado
         codigos = {str(r.get("Codigo","")).strip().lower() for r in disponibilidad if r.get("Codigo")}
         codigos = {c for c in codigos if c}
 

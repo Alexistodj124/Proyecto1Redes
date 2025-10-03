@@ -1,11 +1,9 @@
-# local_mcp_server.py
-# Servidor MCP vía WebSocket (JSON-RPC) en /mcp usando FastAPI
+# Servidor MCP vía WebSocket
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.responses import PlainTextResponse
 from typing import List, Dict, Any
 import json, os, re
 
-# Importa tu lógica de inventario
 from inventario import Inventario
 
 CSV_PATH = os.getenv("INVENTARIO_CSV", "prueba.csv")
@@ -13,12 +11,12 @@ inv = Inventario(CSV_PATH)
 
 app = FastAPI(title="MCP Inventario (WS)")
 
-# Descripción en HTTP GET /
+# HTTP GET /
 @app.get("/", response_class=PlainTextResponse)
 def root():
     return "MCP WS server. Connect via WebSocket at /mcp (subprotocol: jsonrpc)."
 
-# Definición de herramientas MCP (metadatos)
+# Definición de herramientas MCP
 TOOLS = [
     {
         "name": "find_stores_by_zone",
@@ -43,7 +41,7 @@ TOOLS = [
     },
 ]
 
-PROTOCOL = "MCP/2025-06-18"  # versión protocolaria usada en tus pruebas
+PROTOCOL = "MCP/2025-06-18"
 
 async def handle_rpc(req: dict) -> dict:
     """Maneja métodos JSON-RPC propios del MCP."""
@@ -96,7 +94,6 @@ async def handle_rpc(req: dict) -> dict:
 
 @app.websocket("/mcp")
 async def ws_mcp(websocket: WebSocket):
-    # Negocia subprotocolo jsonrpc si el cliente lo pide
     requested = websocket.headers.get("sec-websocket-protocol", "")
     if "jsonrpc" in [s.strip() for s in requested.split(",") if s]:
         await websocket.accept(subprotocol="jsonrpc")
@@ -118,5 +115,4 @@ async def ws_mcp(websocket: WebSocket):
             await websocket.send_text(json.dumps(resp))
 
     except WebSocketDisconnect:
-        # cliente cerró
         return
