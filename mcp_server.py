@@ -1,41 +1,122 @@
+# local_mcp_server.py
+# Servidor MCP vía WebSocket (JSON-RPC) en /mcp usando FastAPI
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from fastapi.responses import PlainTextResponse
 from typing import List, Dict, Any
-from mcp.server.fastmcp import FastMCP
+import json, os, re
+
+# Importa tu lógica de inventario
 from inventario import Inventario
-import os
 
-
-# Instancia de inventario basada en CSV
 CSV_PATH = os.getenv("INVENTARIO_CSV", "prueba.csv")
 inv = Inventario(CSV_PATH)
 
-# Crea el servidor MCP
-mcp = FastMCP("inventario_csv")
+app = FastAPI(title="MCP Inventario (WS)")
 
-@mcp.tool()
-def find_stores_by_zone(zone: str) -> List[Dict[str, Any]]:
-    """
-    Devuelve tiendas/stock por zona.
-    Args:
-        zone: Número de zona (e.g., "10")
-    Returns:
-        Lista de dicts: [{Nombre,Calle,Ciudad,Zona,Producto,Stock}, ...]
-    """
-    return inv.buscar_tiendas_en_zona(zone)
+# Descripción en HTTP GET /
+@app.get("/", response_class=PlainTextResponse)
+def root():
+    return "MCP WS server. Connect via WebSocket at /mcp (subprotocol: jsonrpc)."
 
-@mcp.tool()
-def recommend_complements(product_name: str, zone: str | None = None) -> Dict[str, Any]:
-    """
-    Disponibilidad del producto y sugerencias complementarias.
-    Args:
-        product_name: Nombre del producto a buscar (e.g., "Bionic")
-        zone: Número de zona (opcional, e.g., "15")
-    Returns:
-        {
-          "disponibilidad": [ ... coincidencias ... ],
-          "sugeridos": ["Producto A", "Producto B", "Producto C"]
-        }
-    """
-    return inv.recomendar_complementos(product_name, zone)
+# Definición de herramientas MCP (metadatos)
+TOOLS = [
+    {
+        "name": "find_stores_by_zone",
+        "description": "Devuelve tiendas/stock por zona.",
+        "input_schema": {
+            "type": "object",
+            "properties": {"zone": {"type": "string"}},
+            "required": ["zone"],
+        },
+    },
+    {
+        "name": "recommend_complements",
+        "description": "Disponibilidad del producto y sugerencias complementarias.",
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "product_name": {"type": "string"},
+                "zone": {"type": "string"},
+            },
+            "required": ["product_name"],
+        },
+    },
+]
 
-if __name__ == "__main__":
-    mcp.run(transport="stdio")
+PROTOCOL = "MCP/2025-06-18"  # versión protocolaria usada en tus pruebas
+
+async def handle_rpc(req: dict) -> dict:
+    """Maneja métodos JSON-RPC propios del MCP."""
+    j = {"jsonrpc": "2.0", "id": req.get("id")}
+    method = req.get("method")
+    params = req.get("params") or {}
+
+    try:
+        if method == "initialize":
+            j["result"] = {
+                "protocol": PROTOCOL,
+                "capabilities": {"tools": True},
+                "tools": TOOLS,
+            }
+            return j
+
+        if method == "tools/list":
+            j["result"] = {"tools": TOOLS}
+            return j
+
+        if method == "tools/call":
+            name = params.get("name")
+            args = params.get("arguments") or {}
+            if name == "find_stores_by_zone":
+                zone = str(args.get("zone", "")).strip()
+                result = inv.buscar_tiendas_en_zona(zone)
+                j["result"] = result
+                return j
+
+            if name == "recommend_complements":
+                product_name = str(args.get("product_name", "")).strip()
+                zone = args.get("zone")
+                if zone is not None:
+                    zone = str(zone).strip()
+                result = inv.recomendar_complementos(product_name, zone)
+                j["result"] = result
+                return j
+
+            # método no encontrado
+            j["error"] = {"code": -32601, "message": "Method not found"}
+            return j
+
+        # método desconocido
+        j["error"] = {"code": -32601, "message": "Method not found"}
+        return j
+
+    except Exception as e:
+        j["error"] = {"code": -32603, "message": f"{type(e).__name__}: {e}"}
+        return j
+
+@app.websocket("/mcp")
+async def ws_mcp(websocket: WebSocket):
+    # Negocia subprotocolo jsonrpc si el cliente lo pide
+    requested = websocket.headers.get("sec-websocket-protocol", "")
+    if "jsonrpc" in [s.strip() for s in requested.split(",") if s]:
+        await websocket.accept(subprotocol="jsonrpc")
+    else:
+        await websocket.accept()
+
+    try:
+        while True:
+            raw = await websocket.receive_text()
+            try:
+                req = json.loads(raw)
+            except json.JSONDecodeError:
+                await websocket.send_text(
+                    json.dumps({"jsonrpc": "2.0", "error": {"code": -32700, "message": "Parse error"}})
+                )
+                continue
+
+            resp = await handle_rpc(req)
+            await websocket.send_text(json.dumps(resp))
+
+    except WebSocketDisconnect:
+        # cliente cerró
+        return

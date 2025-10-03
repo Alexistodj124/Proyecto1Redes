@@ -1,0 +1,58 @@
+base_nombre,base_codigo,complemento_nombre,complemento_codigo,tipo,razon
+BIONIC BALL SMALL,BS-B,BIONIC BALL MEDIUM,BM-B,upsell,Misma línea, mayor tamaño para perros medianos.
+BIONIC BALL SMALL,BS-B,BIONIC TOSS-N-TUG,B-TNT,cross-sell,Actividad de lanzar/jalar; complementa la pelota.
+BIONIC BALL SMALL,BS-B,BIONIC URBAN STICK MEDIUM,BM-US,cross-sell,Juguete resistente con compartimentos para premios.
+BIONIC BALL SMALL,BS-B,BIONIC TREAT SHAKER SMALL,BS-TS,cross-sell,Interactivo para dispensar premios.
+BIONIC BALL MEDIUM,BM-B,BIONIC TOSS-N-TUG,B-TNT,cross-sell,Juego de lanzar/jalar para variedad de ejercicio.
+BIONIC BALL MEDIUM,BM-B,BIONIC URBAN STICK LARGE,BL-US,upsell,Versión más grande para masticadores intensos.
+BIONIC BALL MEDIUM,BM-B,BIONIC TREAT SHAKER SMALL,BS-TS,cross-sell,Juego mental con premios.
+BIONIC TOSS-N-TUG,B-TNT,BIONIC BALL MEDIUM,BM-B,cross-sell,Alterna con pelota compatible con lanzadores.
+BIONIC TOSS-N-TUG,B-TNT,BIONIC URBAN STICK LARGE,BL-US,cross-sell,Otra textura y dinámica de juego resistente.
+BIONIC URBAN STICK MEDIUM,BM-US,BIONIC BALL MEDIUM,BM-B,cross-sell,Variedad entre masticar y perseguir.
+BIONIC URBAN STICK MEDIUM,BM-US,BIONIC TREAT SHAKER SMALL,BS-TS,cross-sell,Añade estímulo con premios.
+BIONIC URBAN STICK LARGE,BL-US,BIONIC TOSS-N-TUG,B-TNT,cross-sell,Para tirar y jalar al aire libre.
+BIONIC URBAN STICK LARGE,BL-US,BIONIC BALL MEDIUM,BM-B,cross-sell,Juego de buscar-perseguir complementario.
+BIONIC TREAT SHAKER SMALL,BS-TS,BIONIC BALL SMALL,BS-B,cross-sell,Combina estimulación mental con juego físico.
+BIONIC TREAT SHAKER SMALL,BS-TS,BIONIC TOSS-N-TUG,B-TNT,cross-sell,Actividad de tirar y jalar adicional.
+ARENA L-FAVOURITE LAVANDA,F10-LA,BIO STONES CARBON ACTIVADO,BS4-C,alternativa,Opción con carbón activado para mayor control de olores.
+ARENA L-FAVOURITE LAVANDA,F10-LA,BIO STONES HEALTH MONITOR,BS2.5-HM,cross-sell,Monitor de pH para salud urinaria del gato.
+ARENA L-FAVOURITE LAVANDA,F10-LA,BIO STONES MANZANA (8kg),BS8-M,alternativa,Bentonita en esferas 8 kg, 99% libre de polvo.
+ARENA L-FAVOURITE LAVANDA,F10-LA,BIO STONES MANZANA (25kg),BS25-L,alternativa,Presentación 25 kg para mayor rendimiento.
+ARENA L-FAVOURITE LIMON,F10-LI,BIO STONES CARBON ACTIVADO,BS4-C,alternativa,Opción con carbón activado para mayor control de olores.
+ARENA L-FAVOURITE LIMON,F10-LI,BIO STONES HEALTH MONITOR,BS2.5-HM,cross-sell,Monitor de pH para salud urinaria del gato.
+ARENA L-FAVOURITE LIMON,F10-LI,BIO STONES MANZANA (8kg),BS8-M,alternativa,Bentonita en esferas 8 kg, 99% libre de polvo.
+ARENA L-FAVOURITE LIMON,F10-LI,BIO STONES MANZANA (25kg),BS25-L,alternativa,Presentación 25 kg para mayor rendimiento.
+ARENA L-FAVOURITE MANZANA,F10-M,BIO STONES CARBON ACTIVADO,BS4-C,alternativa,Opción con carbón activado para mayor control de olores.
+ARENA L-FAVOURITE MANZANA,F10-M,BIO STONES HEALTH MONITOR,BS2.5-HM,cross-sell,Monitor de pH para salud urinaria del gato.
+ARENA L-FAVOURITE MANZANA,F10-M,BIO STONES MANZANA (8kg),BS8-M,alternativa,Bentonita en esferas 8 kg, 99% libre de polvo.
+ARENA L-FAVOURITE MANZANA,F10-M,BIO STONES MANZANA (25kg),BS25-L,alternativa,Presentación 25 kg para mayor rendimiento.
+ARENA L-FAVOURITE CAFÉ,F10-CAFE,BIO STONES CARBON ACTIVADO,BS4-C,alternativa,Opción con carbón activado para mayor control de olores.
+ARENA L-FAVOURITE CAFÉ,F10-CAFE,BIO STONES HEALTH MONITOR,BS2.5-HM,cross-sell,Monitor de pH para salud urinaria del gato.
+ARENA L-FAVOURITE CAFÉ,F10-CAFE,BIO STONES MANZANA (8kg),BS8-M,alternativa,Bentonita en esferas 8 kg, 99% libre de polvo.
+ARENA L-FAVOURITE CAFÉ,F10-CAFE,BIO STONES MANZANA (25kg),BS25-L,alternativa,Presentación 25 kg para mayor rendimiento.
+BIO STONES MANZANA (8kg),BS8-M,BIO STONES CARBON ACTIVADO,BS4-C,cross-sell,Más control de olores con carbón activado.
+BIO STONES MANZANA (8kg),BS8-M,BIO STONES HEALTH MONITOR,BS2.5-HM,cross-sell,Granulos con sensor de pH para salud felina.
+BIO STONES MANZANA (25kg),BS25-L,BIO STONES CARBON ACTIVADO,BS4-C,cross-sell,Combina capacidad y control de olores.
+BIO STONES MANZANA (25kg),BS25-L,BIO STONES HEALTH MONITOR,BS2.5-HM,cross-sell,Monitor de pH en el arenero.
+BIO STONES HEALTH MONITOR,BS2.5-HM,BIO STONES CARBON ACTIVADO,BS4-C,cross-sell,Complementa con control de olores.
+BIO STONES HEALTH MONITOR,BS2.5-HM,L-FAVOURITE LAVANDA,F10-LA,alternativa,Alternativa aromática premium.
+BIO STONES CARBON ACTIVADO,BS4-C,BIO STONES HEALTH MONITOR,BS2.5-HM,cross-sell,Agrega monitoreo de salud urinaria.
+BIO STONES CARBON ACTIVADO,BS4-C,L-FAVOURITE MANZANA,F10-M,alternativa,Alternativa premium aromática.
+ARENA MISH ROSAS,M11-R,BIO STONES CARBON ACTIVADO,BS4-C,upsell,Mejor control de olor (carbón activado).
+ARENA MISH ROSAS,M11-R,L-FAVOURITE LAVANDA,F10-LA,upsell,Línea premium con alta absorción.
+ARENA MISH ROSAS,M11-R,BIO STONES HEALTH MONITOR,BS2.5-HM,cross-sell,Monitoreo de pH para salud felina.
+ARENA MISH LAVANDA,M11-LA,BIO STONES CARBON ACTIVADO,BS4-C,upsell,Mejor control de olor (carbón activado).
+ARENA MISH LAVANDA,M11-LA,L-FAVOURITE LAVANDA,F10-LA,upsell,Línea premium con alta absorción.
+ARENA MISH LAVANDA,M11-LA,BIO STONES HEALTH MONITOR,BS2.5-HM,cross-sell,Monitoreo de pH para salud felina.
+ARENA MISH MANZANA,M11-M,BIO STONES CARBON ACTIVADO,BS4-C,upsell,Mejor control de olor (carbón activado).
+ARENA MISH MANZANA,M11-M,L-FAVOURITE LAVANDA,F10-LA,upsell,Línea premium con alta absorción.
+ARENA MISH MANZANA,M11-M,BIO STONES HEALTH MONITOR,BS2.5-HM,cross-sell,Monitoreo de pH para salud felina.
+ARENA MISH LIMÓN,M11-LI,BIO STONES CARBON ACTIVADO,BS4-C,upsell,Mejor control de olor (carbón activado).
+ARENA MISH LIMÓN,M11-LI,L-FAVOURITE LAVANDA,F10-LA,upsell,Línea premium con alta absorción.
+ARENA MISH LIMÓN,M11-LI,BIO STONES HEALTH MONITOR,BS2.5-HM,cross-sell,Monitoreo de pH para salud felina.
+K-NINO ADULTO (20kg),KN44-ADUL,BIONIC TOSS-N-TUG,B-TNT,cross-sell,Fomenta ejercicio después de la comida.
+K-NINO ADULTO (20kg),KN44-ADUL,BIONIC URBAN STICK LARGE,BL-US,cross-sell,Masticación resistente para perros adultos.
+K-NINO ADULTO (100lbs),KN100-ADUL,BIONIC BALL MEDIUM,BM-B,cross-sell,Juego de buscar compatible con lanzadores.
+K-NINO ADULTO (1lb),KN1-ADUL,BIONIC TREAT SHAKER SMALL,BS-TS,cross-sell,Dispensador de premios para estimular el juego.
+K-NINO CACHORRO (50lbs),KN50-CACH,BIONIC BALL SMALL,BS-B,cross-sell,Pelota adecuada para cachorros.
+K-NINO CACHORRO (50lbs),KN50-CACH,BIONIC TREAT SHAKER SMALL,BS-TS,cross-sell,Estimulación mental con premios.
