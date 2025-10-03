@@ -7,7 +7,7 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 # ========= CONFIG =========
-GROQ_API_KEY = os.getenv("GROQ_API_KEY", "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")
+GROQ_API_KEY = os.getenv("GROQ_API_KEY", "API KEY")
 MODEL = os.getenv("GROQ_MODEL", "llama-3.1-8b-instant")
 MCP_URL = os.getenv("MCP_URL", "ws://3.140.209.59:8000/mcp") 
 # MCP_URL = os.getenv("MCP_URL", "ws://127.0.0.1:8000/mcp") 
